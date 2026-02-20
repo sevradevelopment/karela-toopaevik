@@ -56,34 +56,38 @@ export default function Tankimine() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Tankimine</h1>
-      <p className="text-slate-600 text-sm">Numbrimärgid (vedukid ja hakkuri 0371TH).</p>
+    <div className="page">
+      <div className="page-header">
+        <h1>Tankimine</h1>
+        <p>Numbrimärgid (vedukid ja hakkuri 0371TH).</p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="card space-y-4 max-w-md">
-        <div>
-          <label className="label">Kuupäev</label>
-          <input type="date" className="input" value={date} onChange={(e) => setDate(e.target.value)} required />
-        </div>
-        <div>
-          <label className="label">Numbrimärk</label>
-          <select className="input" value={plateId} onChange={(e) => setPlateId(e.target.value)} required>
-            <option value="">— vali —</option>
-            {plates.map((p) => (
-              <option key={p.id} value={p.id}>{p.plate}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="label">Liitrid</label>
-          <input type="number" step="0.1" min="0" className="input" value={liters} onChange={(e) => setLiters(e.target.value)} placeholder="nt. 45" required />
-        </div>
-        <button type="submit" className="btn btn-primary">Salvesta</button>
-      </form>
+      <div className="card" style={{ marginBottom: '1.5rem' }}>
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label">Kuupäev</label>
+            <input type="date" className="input" value={date} onChange={(e) => setDate(e.target.value)} required />
+          </div>
+          <div className="field">
+            <label className="label">Numbrimärk</label>
+            <select className="input" value={plateId} onChange={(e) => setPlateId(e.target.value)} required>
+              <option value="">— vali —</option>
+              {plates.map((p) => (
+                <option key={p.id} value={p.id}>{p.plate}</option>
+              ))}
+            </select>
+          </div>
+          <div className="field">
+            <label className="label">Liitrid</label>
+            <input type="number" step="0.1" min="0" className="input" value={liters} onChange={(e) => setLiters(e.target.value)} placeholder="nt. 45" required />
+          </div>
+          <button type="submit" className="btn btn-primary">Salvesta</button>
+        </form>
+      </div>
 
       <div className="card">
-        <h2 className="text-lg font-semibold text-slate-700 mb-3">Viimased tankimised</h2>
-        <ul className="space-y-1 text-sm">
+        <div className="card-section-title">Viimased tankimised</div>
+        <ul className="list-plain">
           {entries.map((e) => (
             <li key={e.id}>{e.date} — {e.license_plates?.plate ?? '—'} — {e.liters} L</li>
           ))}

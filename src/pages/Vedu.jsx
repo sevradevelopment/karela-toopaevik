@@ -58,46 +58,51 @@ export default function Vedu() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Vedu – mida ja palju vedas</h1>
+    <div className="page">
+      <div className="page-header">
+        <h1>Vedu – mida ja palju vedas</h1>
+        <p>Numbrimärk, asukoht, kirjeldus ja kogus.</p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="card space-y-4 max-w-md">
-        <div>
-          <label className="label">Kuupäev</label>
-          <input type="date" className="input" value={date} onChange={(e) => setDate(e.target.value)} required />
-        </div>
-        <div>
-          <label className="label">Numbrimärk</label>
-          <select className="input" value={plateId} onChange={(e) => setPlateId(e.target.value)}>
-            <option value="">— vali —</option>
-            {plates.map((p) => (
-              <option key={p.id} value={p.id}>{p.plate}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="label">Asukoht</label>
-          <select className="input" value={locationId} onChange={(e) => setLocationId(e.target.value)}>
-            <option value="">— vali —</option>
-            {locations.map((l) => (
-              <option key={l.id} value={l.id}>{l.name}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label className="label">Mida vedas (kirjeldus)</label>
-          <input type="text" className="input" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="nt. hakkepuit" />
-        </div>
-        <div>
-          <label className="label">Kogus (ühik vajadusel)</label>
-          <input type="text" className="input" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="nt. 15 m³" />
-        </div>
-        <button type="submit" className="btn btn-primary">Salvesta</button>
-      </form>
+      <div className="card" style={{ marginBottom: '1.5rem' }}>
+        <form onSubmit={handleSubmit}>
+          <div className="field">
+            <label className="label">Kuupäev</label>
+            <input type="date" className="input" value={date} onChange={(e) => setDate(e.target.value)} required />
+          </div>
+          <div className="field">
+            <label className="label">Numbrimärk</label>
+            <select className="input" value={plateId} onChange={(e) => setPlateId(e.target.value)}>
+              <option value="">— vali —</option>
+              {plates.map((p) => (
+                <option key={p.id} value={p.id}>{p.plate}</option>
+              ))}
+            </select>
+          </div>
+          <div className="field">
+            <label className="label">Asukoht</label>
+            <select className="input" value={locationId} onChange={(e) => setLocationId(e.target.value)}>
+              <option value="">— vali —</option>
+              {locations.map((l) => (
+                <option key={l.id} value={l.id}>{l.name}</option>
+              ))}
+            </select>
+          </div>
+          <div className="field">
+            <label className="label">Mida vedas (kirjeldus)</label>
+            <input type="text" className="input" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="nt. hakkepuit" />
+          </div>
+          <div className="field">
+            <label className="label">Kogus (ühik vajadusel)</label>
+            <input type="text" className="input" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="nt. 15 m³" />
+          </div>
+          <button type="submit" className="btn btn-primary">Salvesta</button>
+        </form>
+      </div>
 
       <div className="card">
-        <h2 className="text-lg font-semibold text-slate-700 mb-3">Viimased kirjed</h2>
-        <ul className="space-y-1 text-sm">
+        <div className="card-section-title">Viimased kirjed</div>
+        <ul className="list-plain">
           {entries.map((e) => (
             <li key={e.id}>
               {e.date} — {e.license_plates?.plate ?? '—'} | {e.locations?.name ?? '—'} | {e.description ?? '—'} {e.amount ? `(${e.amount})` : ''}

@@ -1,6 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { useAuth } from '@/context/AuthContext'
-import Nav from './Nav'
+import Sidebar from './Sidebar'
 
 export default function Layout({ children }) {
   const { user, loading } = useAuth()
@@ -8,8 +8,8 @@ export default function Layout({ children }) {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-slate-500">Laadin…</p>
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg)' }}>
+        <p style={{ color: 'var(--text-secondary)' }}>Laadin…</p>
       </div>
     )
   }
@@ -23,11 +23,11 @@ export default function Layout({ children }) {
   }
 
   return (
-    <>
-      <Nav />
-      <main className="max-w-4xl mx-auto px-4 py-6">
+    <div className="app-shell">
+      <Sidebar />
+      <main className="main-content">
         {children}
       </main>
-    </>
+    </div>
   )
 }

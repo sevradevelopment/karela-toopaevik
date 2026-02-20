@@ -26,15 +26,18 @@ export default function Logid() {
   }, [user?.id])
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">Logid</h1>
+    <div className="page">
+      <div className="page-header">
+        <h1>Logid</h1>
+        <p>Kõik oma töökirjed ühes kohas.</p>
+      </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="chips" style={{ marginBottom: '1.5rem' }}>
         {TABS.map(({ id, label }) => (
           <button
             key={id}
             type="button"
-            className={`btn ${activeTab === id ? 'btn-primary' : 'btn-secondary'}`}
+            className={`chip ${activeTab === id ? 'selected' : ''}`}
             onClick={() => setActiveTab(id)}
           >
             {label}
@@ -44,28 +47,28 @@ export default function Logid() {
 
       <div className="card">
         {activeTab === 'tunnid' && (
-          <ul className="space-y-1 text-sm">
+          <ul className="list-plain">
             {hours.map((e) => (
               <li key={e.id}>{e.date} — {e.start_time} – {e.end_time}</li>
             ))}
           </ul>
         )}
         {activeTab === 'vedu' && (
-          <ul className="space-y-1 text-sm">
+          <ul className="list-plain">
             {transports.map((e) => (
               <li key={e.id}>{e.date} — {e.license_plates?.plate ?? '—'} | {e.locations?.name ?? '—'} | {e.description ?? '—'} {e.amount ? `(${e.amount})` : ''}</li>
             ))}
           </ul>
         )}
         {activeTab === 'tankimine' && (
-          <ul className="space-y-1 text-sm">
+          <ul className="list-plain">
             {refuels.map((e) => (
               <li key={e.id}>{e.date} — {e.license_plates?.plate ?? '—'} — {e.liters} L</li>
             ))}
           </ul>
         )}
         {activeTab === 'tootmine' && (
-          <ul className="space-y-1 text-sm">
+          <ul className="list-plain">
             {production.map((e) => (
               <li key={e.id}>{e.date} — {e.volume_m3} m³</li>
             ))}

@@ -15,11 +15,7 @@ export default function Home() {
   const [locations, setLocations] = useState([])
 
   useEffect(() => {
-    supabase
-      .from('locations')
-      .select('id, name')
-      .order('name')
-      .then(({ data }) => setLocations(data || []))
+    supabase.from('locations').select('id, name').order('name').then(({ data }) => setLocations(data || []))
   }, [])
 
   const name = profile?.full_name || 'töötaja'
@@ -36,39 +32,41 @@ export default function Home() {
   }
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-slate-800">
-        Tere {greeting}, {name}!
-      </h1>
+    <div className="page">
+      <div className="page-header">
+        <h1>Tere {greeting}, {name}!</h1>
+        <p>Karela Transport OÜ tööpäevik</p>
+      </div>
 
-      <section className="card">
-        <h2 className="text-lg font-semibold text-slate-700 mb-2">Asukohad (kuhu kaupa veetakse)</h2>
-        <ul className="flex flex-wrap gap-2">
+      <div className="card" style={{ marginBottom: '1.5rem' }}>
+        <div className="card-section-title">Asukohad (kuhu kaupa veetakse)</div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
           {locations.length === 0 ? (
-            <li className="text-slate-500">Mäetaguse, Puurmanni, Avinurme, Kuusna, Rava, Sinimäe, Tammistu, Peipsiääre, Kavastu, Loviisa, Orimattila, Balti elekter</li>
+            <span style={{ color: 'var(--text-light)' }}>Mäetaguse, Puurmanni, Avinurme, Kuusna, Rava, Sinimäe, Tammistu, Peipsiääre, Kavastu, Loviisa, Orimattila, Balti elekter</span>
           ) : (
             locations.map((loc) => (
-              <li key={loc.id} className="bg-slate-100 px-3 py-1 rounded-lg text-sm">{loc.name}</li>
+              <span key={loc.id} className="badge badge-gray">{loc.name}</span>
             ))
           )}
-        </ul>
-        <p className="text-slate-500 text-sm mt-2">Asukohti saab halduses muuta (Admin).</p>
-      </section>
+        </div>
+        <p style={{ color: 'var(--text-light)', fontSize: '0.85rem', marginTop: '0.75rem' }}>Asukohti saab halduses muuta (Admin).</p>
+      </div>
 
-      <section className="card">
-        <h2 className="text-lg font-semibold text-slate-700 mb-3">Kiirlingid</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="card">
+        <div className="card-section-title">Kiirlingid</div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: '0.75rem' }}>
           {links.map(({ to, label }) => (
             <Link
               key={to}
               to={to}
-              className="block p-4 rounded-xl border border-slate-200 bg-white hover:border-primary hover:bg-primary-light/30 font-medium text-slate-800 transition"
+              className="btn btn-secondary"
+              style={{ justifyContent: 'center' }}
             >
               {label}
             </Link>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   )
 }
